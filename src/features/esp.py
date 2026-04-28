@@ -48,7 +48,13 @@ class ESP:
                 )
                 
             for entity in self.entities.enumerate():
-                if entity.world_to_screen(view_matrix) and entity.health() != 0:
+                try:
+                    if entity.health() <= 0:
+                        continue
+                except:
+                    continue
+                    
+                if entity.world_to_screen(view_matrix):
                     box_x = entity.head_pos_2d["x"] - (((entity.pos_2d["y"] - entity.head_pos_2d["y"]) / 2) / 2)
                     box_y = entity.head_pos_2d["y"] - (((entity.pos_2d["y"] - entity.head_pos_2d["y"]) / 2) / 2) / 2
                     box_width = (entity.pos_2d["y"] - entity.head_pos_2d["y"]) / 2
@@ -59,16 +65,16 @@ class ESP:
                     # enemy
                     if entity.team() != local_player_team:
 
-                        # bone
+                        # enemy bone
                         if Switch.queue.get("enemy_bone"):
 
                             [pm.draw_line(startPosX=bone[0], startPosY=bone[1], endPosX=bone[2], endPosY=bone[3], color=pm.fade_color(ColorPicker.queue["enemy_bone"]["color"], 0.7), thick=1.5) for bone in [
                                 (entity.neck["x"], entity.neck["y"], entity.right_shoulder["x"], entity.right_shoulder["y"]),
                                 (entity.neck["x"], entity.neck["y"], entity.left_shoulder["x"], entity.left_shoulder["y"]),
-                                (entity.left_arm["x"], entity.left_arm["y"], entity.left_shoulder["x"], entity.left_shoulder["y"]),
-                                (entity.right_arm["x"], entity.right_arm["y"], entity.right_shoulder["x"], entity.right_shoulder["y"]),
-                                (entity.right_arm["x"], entity.right_arm["y"], entity.right_hand["x"], entity.right_hand["y"]),
-                                (entity.left_arm["x"], entity.left_arm["y"], entity.left_hand["x"], entity.left_hand["y"]),
+                                (entity.left_elbow["x"], entity.left_elbow["y"], entity.left_shoulder["x"], entity.left_shoulder["y"]),
+                                (entity.right_elbow["x"], entity.right_elbow["y"], entity.right_shoulder["x"], entity.right_shoulder["y"]),
+                                (entity.right_elbow["x"], entity.right_elbow["y"], entity.right_hand["x"], entity.right_hand["y"]),
+                                (entity.left_elbow["x"], entity.left_elbow["y"], entity.left_hand["x"], entity.left_hand["y"]),
                                 (entity.neck["x"], entity.neck["y"], entity.waist["x"], entity.waist["y"]),
                                 (entity.right_knees["x"], entity.right_knees["y"], entity.waist["x"], entity.waist["y"]),
                                 (entity.left_knees["x"], entity.left_knees["y"], entity.waist["x"], entity.waist["y"]),
@@ -193,10 +199,10 @@ class ESP:
                             [pm.draw_line(startPosX=bone[0], startPosY=bone[1], endPosX=bone[2], endPosY=bone[3], color=pm.fade_color(ColorPicker.queue["friend_bone"]["color"], 0.7), thick=1.5) for bone in [
                                 (entity.neck["x"], entity.neck["y"], entity.right_shoulder["x"], entity.right_shoulder["y"]),
                                 (entity.neck["x"], entity.neck["y"], entity.left_shoulder["x"], entity.left_shoulder["y"]),
-                                (entity.left_arm["x"], entity.left_arm["y"], entity.left_shoulder["x"], entity.left_shoulder["y"]),
-                                (entity.right_arm["x"], entity.right_arm["y"], entity.right_shoulder["x"], entity.right_shoulder["y"]),
-                                (entity.right_arm["x"], entity.right_arm["y"], entity.right_hand["x"], entity.right_hand["y"]),
-                                (entity.left_arm["x"], entity.left_arm["y"], entity.left_hand["x"], entity.left_hand["y"]),
+                                (entity.left_elbow["x"], entity.left_elbow["y"], entity.left_shoulder["x"], entity.left_shoulder["y"]),
+                                (entity.right_elbow["x"], entity.right_elbow["y"], entity.right_shoulder["x"], entity.right_shoulder["y"]),
+                                (entity.right_elbow["x"], entity.right_elbow["y"], entity.right_hand["x"], entity.right_hand["y"]),
+                                (entity.left_elbow["x"], entity.left_elbow["y"], entity.left_hand["x"], entity.left_hand["y"]),
                                 (entity.neck["x"], entity.neck["y"], entity.waist["x"], entity.waist["y"]),
                                 (entity.right_knees["x"], entity.right_knees["y"], entity.waist["x"], entity.waist["y"]),
                                 (entity.left_knees["x"], entity.left_knees["y"], entity.waist["x"], entity.waist["y"]),

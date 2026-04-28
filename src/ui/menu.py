@@ -626,7 +626,7 @@ class Content:
 
             # misc
             Switch.queue["ignore_team"] = data["misc"]["ignore_team"]
-            Switch.queue["crosshair"] = data["misc"]["crosshair"]
+            Switch.queue["crosshair"] = data["misc"]["crosshair"]["enable"]
             ColorPicker.queue["crosshair"]["color"] = data["misc"]["crosshair"]["color"]
 
             Components.add_notification(title="Success", message="Config loaded successfully", show_time=3)
